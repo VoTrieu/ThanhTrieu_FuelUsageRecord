@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Platform, StyleSheet} from 'react-native';
+import {View, Text, Platform, StyleSheet, Pressable} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
@@ -49,7 +49,12 @@ function AppNavigator(props) {
           name="NewConsumptionScreen"
           component={NewConsumptionScreen}
           options={{
-            title: 'Create Consumption',
+            headerTitle: () => (
+              <View style={styles.headerContainer}>
+                <Text style={styles.headerTitle}>Create Consumption</Text>
+                <Text style={styles.headerTitle}>ThanhTrieu</Text>
+              </View>
+            ),
           }}
         />
       </Stack.Navigator>

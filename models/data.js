@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 class Data {
   constructor() {}
 
-  initData() {
+  static initData() {
     return AsyncStorage.setItem(
       'initData',
       JSON.stringify({
@@ -17,7 +17,7 @@ class Data {
     );
   }
 
-  getData() {
+  static getData() {
     return AsyncStorage.getItem('initData');
   }
 }

@@ -1,30 +1,69 @@
-import React, {useState, useEffect, useLayoutEffect} from 'react';
+import React, {useLayoutEffect, useEffect} from 'react';
 import {
   View,
   FlatList,
   Platform,
   StyleSheet,
+  Text,
   Pressable,
-  Alert,
 } from 'react-native';
+import {useSelector} from 'react-redux';
 
 import FloatButton from '../components/FloatButton';
+import ListItem from '../components/ListItem';
+import auth from '@react-native-firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const ConsumptionScreen = props => {
   const {navigation} = props;
 
+  //Check if user logged in
+  useEffect(() => {
+    async function fetchToken() {
+      const token = await AsyncStorage.getItem('token');
+      if (token === null) {
+        navigation.navigate('AuthorizationScreen');
+      }
+    }
+    fetchToken();
+  }, []);
+
+  const logout = async () => {
+    await auth().signOut();
+    await AsyncStorage.removeItem('token');
+    navigation.navigate('ConsumptionScreen');
+  };
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Pressable style={styles.iconContainer} onPress={logout}>
+          <Icon style={styles.icon} name="logout" color="#fff" />
+        </Pressable>
+      ),
+    });
+  }, [navigation]);
+
+  const userConsumptionList = useSelector(
+    state => state.fuel.userConsumptionList,
+  );
+  const currentUserAllowance = useSelector(state => state.fuel.userAllowance);
   const addNewConsumption = () => {
     navigation.navigate('NewConsumptionScreen');
   };
 
   return (
     <View style={styles.container}>
-      {/* <FlatList
-        data={rentingList}
-        renderItem={value => (
-          <ListItem onUpdate={navigateToInputScreen} item={value.item} />
-        )}
-      /> */}
+      <View style={styles.allowanceContainer}>
+        <Text style={styles.text}>
+          User Allowance Remaining: {currentUserAllowance}
+        </Text>
+      </View>
+      <FlatList
+        data={userConsumptionList}
+        renderItem={value => <ListItem item={value.item} />}
+      />
 
       <FloatButton
         onPress={addNewConsumption}
@@ -61,6 +100,18 @@ const styles = StyleSheet.create({
   },
   icon: {
     fontSize: 25,
+  },
+  allowanceContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    height: 30,
+    marginVertical: 20,
+    paddingHorizontal: 10,
+  },
+  text: {
+    marginVertical: 5,
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });
 

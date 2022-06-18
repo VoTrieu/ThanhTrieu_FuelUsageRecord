@@ -11,28 +11,41 @@ import {
   ScrollView,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
+import Data from '../models/data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
+import {fuelActions} from '../store/fuel-slice';
 
 const AuthorizationScreen = props => {
   const {navigation} = props;
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchToken() {
       const token = await AsyncStorage.getItem('token');
       if (token != null) {
+        initData();
         navigation.navigate('ConsumptionScreen');
       }
     }
     fetchToken();
   }, []);
 
+  const initData = () => {
+    Data.getData().then(data => {
+      const _data = JSON.parse(data);
+      dispatch(fuelActions.initDatabase(_data));
+    });
+  };
+
   const setToken = firebaseUser => {
     firebaseUser.user
       .getIdToken()
       .then(async token => {
+        initData();
         await AsyncStorage.setItem('token', token);
         navigation.navigate('ConsumptionScreen');
       })
@@ -47,6 +60,7 @@ const AuthorizationScreen = props => {
       .signInWithEmailAndPassword(email, password)
       .then(function (_firebaseUser) {
         setToken(_firebaseUser);
+        initData();
       })
       .catch(function (error) {
         var errorCode = error.code;
@@ -80,6 +94,7 @@ const AuthorizationScreen = props => {
         setEmail('');
         setPassword('');
         setToken(_firebaseUser);
+        initData();
       })
       .catch(function (error) {
         var errorCode = error.code;
