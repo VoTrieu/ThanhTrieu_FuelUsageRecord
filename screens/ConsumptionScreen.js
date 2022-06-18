@@ -30,9 +30,16 @@ const ConsumptionScreen = props => {
   }, []);
 
   const logout = async () => {
-    await auth().signOut();
-    await AsyncStorage.removeItem('token');
-    navigation.navigate('ConsumptionScreen');
+    auth()
+      .signOut()
+      .then(
+        () => console.log('Logout Successfully'),
+        error => console.log('Logout failed', error),
+      )
+      .finally(() => {
+        AsyncStorage.removeItem('token');
+        navigation.navigate('AuthorizationScreen');
+      });
   };
 
   useLayoutEffect(() => {
