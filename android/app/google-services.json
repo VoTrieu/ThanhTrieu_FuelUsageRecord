@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "442276956987",
+    "project_id": "info-6132-react-native",
+    "storage_bucket": "info-6132-react-native.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:442276956987:android:6360d49bdcf0836776451e",
+        "android_client_info": {
+          "package_name": "com.thanhtrieu_fuelusagerecord"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "442276956987-oljjj58v7if7ttql1h6qf4hct4rf42j4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thanhtrieu_fuelusagerecord",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "442276956987-44fa16btnldk67qm5etn2ourjri5ptm1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPIksAD25BxTBmzBlcEYFD7RWe1jcQ45U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "442276956987-44fa16btnldk67qm5etn2ourjri5ptm1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

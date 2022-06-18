@@ -10,7 +10,7 @@ import {
   SafeAreaView,
   ScrollView,
 } from 'react-native';
-import {auth} from '../FirebaseConfig';
+import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AuthorizationScreen = props => {
@@ -22,7 +22,7 @@ const AuthorizationScreen = props => {
   useEffect(() => {
     async function fetchToken() {
       const token = await AsyncStorage.getItem('token');
-      if (token != '') {
+      if (token != null) {
         navigation.navigate('ConsumptionScreen');
       }
     }
@@ -43,7 +43,7 @@ const AuthorizationScreen = props => {
 
   const loginWithFirebase = () => {
     setIsLoading(true);
-    auth
+    auth()
       .signInWithEmailAndPassword(email, password)
       .then(function (_firebaseUser) {
         setToken(_firebaseUser);
@@ -73,7 +73,7 @@ const AuthorizationScreen = props => {
     }
 
     setIsLoading(true);
-    auth
+    auth()
       .createUserWithEmailAndPassword(email, password)
       .then(function (_firebaseUser) {
         Alert.alert('user registered!');
@@ -85,7 +85,7 @@ const AuthorizationScreen = props => {
         var errorCode = error.code;
         var errorMessage = error.message;
         setIsLoading(false);
-        if (errorCode == 'auth/weak-password') {
+        if (errorCode === 'auth/weak-password') {
           Alert.alert('The password is too weak.');
         } else {
           Alert.alert(errorMessage);
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   input: {
     marginVertical: 12,
     borderWidth: 1,
-    padding: 10,
+    padding: 5,
   },
   imgContainer: {
     justifyContent: 'center',
