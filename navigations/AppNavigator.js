@@ -16,9 +16,9 @@ function AppNavigator(props) {
         initialRouteName="Home"
         headerMode="screen"
         screenOptions={{
-          headerTintColor: Platform.OS === 'android' ? 'white' : 'blue',
+          headerTintColor: 'white',
           headerStyle: {
-            backgroundColor: Platform.OS === 'android' ? 'green' : '',
+            backgroundColor: 'green',
           },
         }}>
         <Stack.Screen
@@ -49,6 +49,7 @@ function AppNavigator(props) {
           name="NewConsumptionScreen"
           component={NewConsumptionScreen}
           options={{
+            // title: 'Create Consumption',
             headerTitle: () => (
               <View style={styles.headerContainer}>
                 <Text style={styles.headerTitle}>Create Consumption</Text>
@@ -75,8 +76,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   headerTitle: {
-    color: 'white',
     fontSize: 18,
+    color: 'white',
+    // ...Platform.select({
+    //   ios: {
+    //     color: 'blue',
+    //   },
+    //   android: {
+    //     color: 'white',
+    //   },
+    // }),
   },
 });
 

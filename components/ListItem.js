@@ -19,13 +19,13 @@ const ListItem = props => {
 
   return (
     <Card style={styles.listItem}>
-      <View>
+      
         <Pressable
           style={styles.deleteButton}
           onPress={removeConsumption.bind(this, consumptionObj.id)}>
           <Icon style={styles.icon} name="delete" color="grey" />
         </Pressable>
-      </View>
+    
       <View>
         <View style={styles.field}>
           <Text style={{...styles.label, ...styles.text}}>Fuel Type:</Text>
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   listItem: {
     padding: 10,
     marginVertical: 5,
+    position: 'relative',
   },
   icon: {
     fontSize: 25,
@@ -61,6 +62,8 @@ const styles = StyleSheet.create({
   deleteButton: {
     position: 'absolute',
     right: 0,
+    top: 0,
+    padding: 15,
   },
   label: {
     width: 150,
@@ -68,6 +71,9 @@ const styles = StyleSheet.create({
   field: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  deleteButtonContainer: {
+    backgroundColor: 'red',
   },
 });
 
