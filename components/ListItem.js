@@ -36,7 +36,7 @@ const ListItem = props => {
           <Text style={styles.text}>{consumptionObj.price}</Text>
         </View>
         <View style={styles.field}>
-          <Text style={{...styles.label, ...styles.text}}>Fuel Used::</Text>
+          <Text style={{...styles.label, ...styles.text}}>Fuel Used:</Text>
           <Text style={styles.text}>{consumptionObj.usedAmount}</Text>
         </View>
       </View>
